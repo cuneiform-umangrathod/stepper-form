@@ -1,0 +1,230 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.App main {
+  display: flex;
+  justify-content: center;
+}
+
+main .form-container {
+  font-family: "Jost", sans-serif;
+  width: 70%;
+}
+
+.form-container .count-steps {
+  display: flex;
+  padding-top: 1.5rem;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+}
+.count-steps .line,
+.count-steps .line2 {
+  position: absolute;
+  width: 28%;
+  top: 2.06rem;
+  left: 22%;
+  z-index: -1;
+  height: 1px;
+  background-color: rgb(189, 189, 189);
+}
+.count-steps .line2 {
+  left: 50%;
+}
+
+.count-steps .line-bg,
+.count-steps .line-bg {
+  background-color: dodgerblue;
+}
+.count-steps .user-details,
+.count-steps .address,
+.count-steps .photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.count-steps span:first-child {
+  background-color: white;
+  border: 1px solid dodgerblue;
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: dodgerblue;
+}
+
+.count-steps span.active {
+  background-color: dodgerblue;
+  color: white;
+  transition: all 0.2s;
+}
+
+.form-container .form-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1.5rem;
+}
+
+.login-form-main {
+  width: 50%;
+}
+
+.form-section .form-input-box {
+  position: relative;
+  width: 80%;
+}
+
+.form-section .form-file-box {
+  position: relative;
+  width: 100%;
+}
+
+.form-input-box .form-input {
+  background-color: #f2f2f3;
+  padding: 0.5rem 0.8rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  border: 1px solid #dfdfdf;
+  transition: all 0.2s;
+  border-radius: 0.373rem;
+  outline: 3px solid transparent;
+  width: 90%;
+}
+
+.form-input-box .label {
+  position: absolute;
+  left: 0.8rem;
+  top: 0.5rem;
+  transition: all 0.2s;
+  transform-origin: 0% 0%;
+  background: none;
+  pointer-events: none;
+  color: #8a8a8a;
+}
+
+.form-input-box input:focus + label.label,
+.form-input-box textarea:focus + label.label,
+.form-input-box .valid-input {
+  transform: scale(0.8) translateY(-1.5625rem);
+  background: #fff;
+}
+
+.form-input-box input:focus {
+  /* outline:none; */
+  outline: 2px solid dodgerblue;
+  background-color: white;
+  border-color: transparent;
+}
+
+.form-input-box textarea:focus {
+  /* outline:none; */
+  outline: 2px solid dodgerblue;
+  background-color: white;
+  border-color: transparent;
+  resize: none;
+}
+
+.form-input-box textarea {
+  font-family: "Jost", sans-serif;
+  resize: none;
+}
+
+.form-input-box .form-error,
+.form-file-box .form-error {
+  color: red;
+}
+
+.step-one {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+.form-section button {
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  background-color: rgba(30, 143, 255, 0.301);
+  background-color: #f2f2f3;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: not-allowed;
+  color: rgb(177, 177, 177);
+  transition: all 0.2s;
+}
+
+.form-section .form-btn {
+  background-color: rgba(30, 143, 255, 0.301);
+  color: dodgerblue;
+  cursor: pointer;
+}
+
+.form-section .cancel-btn {
+  background-color: rgba(255, 30, 30, 0.301);
+  color: white;
+  z-index: 2;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.form-section .btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.form-section .form-btn:hover {
+  background-color: dodgerblue;
+  color: white;
+}
+.form-section .cancel-btn:hover {
+  background-color: rgba(255, 30, 30, 0.808);
+  color: white;
+  cursor: pointer;
+}
+.form-section .form-btn:active {
+  transform: scale(0.99) translateY(0.1rem);
+}
+
+.form-container [type="number"]::-webkit-outer-spin-button,
+.form-container [type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.form-container [type="date"] {
+  font-family: "Jost", sans-serif;
+}
+
+.step-one .upload-doc {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 3px dotted dodgerblue;
+  border-radius: 1rem;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.upload-doc .upload-input {
+  position: absolute;
+  width: 99%;
+  height: 99%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.upload-doc .selected_img {
+  max-width: 100%;
+  object-fit: cover;
+}

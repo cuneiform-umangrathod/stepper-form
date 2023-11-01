@@ -1,0 +1,30 @@
+@media screen and (min-width: 200px) and (max-width: 414px) and (orientation: portrait) {
+  main .form-container {
+    font-family: "Jost", sans-serif;
+    width: 95%;
+  }
+  .login-form-main {
+    width: 100%;
+  }
+
+  .count-steps .line{
+    left: 18%;
+}
+}
+
+
+@media screen and (min-width:415px) and (max-width:912px) and (orientation:portrait){
+
+    main .form-container {
+        font-family: "Jost", sans-serif;
+        width: 100%;
+      }
+
+      .login-form-main {
+        width:75%;
+      }
+
+      .form-container .form-section {
+        padding-top: 2.5rem;
+    }
+} 
