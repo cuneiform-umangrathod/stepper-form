@@ -54,11 +54,12 @@ main .form-container {
   padding: 0.5rem;
   border-radius: 50%;
   color: dodgerblue;
+  cursor: pointer;
+
 }
 
 .count-steps span.active {
   background-color: dodgerblue;
-  color: white;
   transition: all 0.2s;
 }
 

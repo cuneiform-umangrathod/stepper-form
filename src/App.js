@@ -75,6 +75,7 @@ function App() {
       setUploadDoc(null);
       setUploadImg(null);
       setShowStepOne(true);
+      setStepTwo(false);
     },
   });
 
@@ -159,7 +160,6 @@ function App() {
                   setShowStepOne={setShowStepOne}
                   setShowStepTwo={setShowStepTwo}
                   setStatusLine={setStatusLine}
-                  statusLine={statusLine}
                   setShowStepThree={setShowStepThree}
                   uploadImg={uploadImg}
                   setUploadImg={setUploadImg}

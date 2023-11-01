@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 const StepperThree = ({
   formik,
@@ -6,17 +6,16 @@ const StepperThree = ({
   setShowStepTwo,
   setShowStepThree,
   setStatusLine,
-  statusLine,
   uploadImg,
   setUploadImg,
   uploadDoc,
   setUploadDoc,
 }) => {
   useEffect(() => {
-    setStatusLine({ ...statusLine, stageThree: true });
+    setStatusLine({ stageThree: true ,stageOne: true,stageTwo: true});
     setShowStepOne(false);
     setShowStepTwo(false);
-  }, []);
+  },[]);
 
   const handleChange = (event) => {
     const img = event.target.files[0];
