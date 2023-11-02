@@ -1,20 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const StepperThree = ({
   formik,
   setShowStepOne,
-  setShowStepTwo,
-  setShowStepThree,
   setStatusLine,
-  uploadImg,
-  setUploadImg,
-  uploadDoc,
-  setUploadDoc,
 }) => {
+
+
+  const [uploadImg, setUploadImg] = useState("");
+  const [uploadDoc, setUploadDoc] = useState("");
+
   useEffect(() => {
     setStatusLine({ stageThree: true, stageOne: true, stageTwo: true });
-    setShowStepOne(false);
-    setShowStepTwo(false);
   }, []);
 
   const handleChange = (event) => {
@@ -112,8 +109,7 @@ const StepperThree = ({
             type="button"
             className={"form-btn"}
             onClick={() => {
-              setShowStepTwo(true);
-              setShowStepThree(false);
+              setShowStepOne('secondForm');
             }}
           >
             {" "}

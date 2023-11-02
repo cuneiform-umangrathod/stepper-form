@@ -15,15 +15,9 @@ function App() {
   });
 
   const [stepOne, setStepOne] = useState(false);
-  const [showStepOne, setShowStepOne] = useState(true);
-
   const [stepTwo, setStepTwo] = useState(false);
-  const [showStepTwo, setShowStepTwo] = useState(false);
 
-  const [showStepThree, setShowStepThree] = useState(false);
-
-  const [uploadImg, setUploadImg] = useState("");
-  const [uploadDoc, setUploadDoc] = useState("");
+  const [showStepOne, setShowStepOne] = useState("firstForm");
 
   const initialValues = {
     name: "",
@@ -72,11 +66,9 @@ function App() {
     initialValues,
     validationSchema,
     onSubmit: (state, { resetForm }) => {
-      console.log(state); 
+      console.log(state);
       resetForm();
-      setUploadDoc(null);
-      setUploadImg(null);
-      setShowStepOne(true);
+      setShowStepOne("firstForm");
       setStepTwo(false);
     },
   });
@@ -97,7 +89,7 @@ function App() {
                 <div
                   className="user-details"
                   onClick={() => {
-                    if (stepOne) setShowStepOne(true);
+                    if (stepOne) setShowStepOne("firstForm");
                   }}
                 >
                   <span className={statusLine.stageOne ? "active" : ""}></span>
@@ -114,11 +106,7 @@ function App() {
                 <div
                   className="address"
                   onClick={() => {
-                    if (stepOne) setShowStepTwo(true);
-                    else if (stepTwo) {
-                      setShowStepThree(false);
-                      setShowStepTwo(true);
-                    }
+                    if (stepOne) setShowStepOne("secondForm");
                   }}
                 >
                   <span className={statusLine.stageTwo ? "active" : ""}></span>
@@ -128,7 +116,7 @@ function App() {
                 <div
                   className="photo"
                   onClick={() => {
-                    if (stepTwo) setShowStepThree(true);
+                    if (stepTwo) setShowStepOne("thirdForm");
                   }}
                 >
                   <span
@@ -143,43 +131,33 @@ function App() {
                   className="login-form-main"
                   onSubmit={formik.handleSubmit}
                 >
-                  {showStepOne && (
+                  {showStepOne === "firstForm" && (
                     <StepperOne
                       formik={formik}
                       stepOne={stepOne}
                       setStepOne={setStepOne}
                       setShowStepOne={setShowStepOne}
-                      setShowStepTwo={setShowStepTwo}
-                      setShowStepThree={setShowStepThree}
                       setStatusLine={setStatusLine}
                       statusLine={statusLine}
                     />
                   )}
 
-                  {showStepTwo && (
+                  {showStepOne === "secondForm" && (
                     <StepperTwo
                       formik={formik}
                       stepTwo={stepTwo}
                       setStepTwo={setStepTwo}
                       setShowStepOne={setShowStepOne}
-                      setShowStepTwo={setShowStepTwo}
-                      setShowStepThree={setShowStepThree}
                       setStatusLine={setStatusLine}
                       statusLine={statusLine}
                     />
                   )}
 
-                  {showStepThree && (
+                  {showStepOne === "thirdForm" && (
                     <StepperThree
                       formik={formik}
                       setShowStepOne={setShowStepOne}
-                      setShowStepTwo={setShowStepTwo}
                       setStatusLine={setStatusLine}
-                      setShowStepThree={setShowStepThree}
-                      uploadImg={uploadImg}
-                      setUploadImg={setUploadImg}
-                      uploadDoc={uploadDoc}
-                      setUploadDoc={setUploadDoc}
                     />
                   )}
                 </form>

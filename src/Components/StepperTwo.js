@@ -5,8 +5,6 @@ const StepperTwo = ({
   stepTwo,
   setStepTwo,
   setShowStepOne,
-  setShowStepTwo,
-  setShowStepThree,
   setStatusLine,
   statusLine
 }) => {
@@ -30,8 +28,6 @@ const StepperTwo = ({
 
   useEffect(()=>{
     setStatusLine({...statusLine,stageTwo:true,stageThree:false});  
-    setShowStepOne(false);
-    setShowStepThree(false);
   },[])
 
   return (
@@ -172,8 +168,7 @@ const StepperTwo = ({
               type="button"
               className={ "form-btn"}
               onClick={() => {
-                  setShowStepOne(true);
-                setShowStepTwo(false);
+                  setShowStepOne('firstForm');
             }}
             >
               {" "}
@@ -184,8 +179,8 @@ const StepperTwo = ({
               className={stepTwo ? "form-btn" : ""}
               disabled={!stepTwo}
               onClick={() => {
-                  setShowStepTwo(false);
-                  setShowStepThree(true);
+                  setShowStepOne('thirdForm');
+                  
                 }}
                 >
               {" "}
