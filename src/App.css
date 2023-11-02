@@ -10,14 +10,21 @@
   .count-steps .line {
     left: 18%;
   }
+
+  .form-section .form-file-box {
+    width: 90%;
+}
+
+.pop-up .close_popup {
+  top: 1%;
+  right: 2%;
+}
 }
 
 @media screen and (min-width: 200px) and (max-width: 915px) and (orientation: landscape) {
-
   main .form-container {
     height: 80%;
-}
-
+  }
 }
 
 @media screen and (min-width: 415px) and (max-width: 912px) and (orientation: portrait) {

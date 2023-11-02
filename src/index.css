@@ -28,6 +28,7 @@ main .form-container::-webkit-scrollbar {
   position: relative;
   z-index: 2;
 }
+
 .count-steps .line,
 .count-steps .line2 {
   position: absolute;
@@ -38,6 +39,7 @@ main .form-container::-webkit-scrollbar {
   height: 1px;
   background-color: rgb(189, 189, 189);
 }
+
 .count-steps .line2 {
   left: 50%;
 }
@@ -46,6 +48,7 @@ main .form-container::-webkit-scrollbar {
 .count-steps .line-bg {
   background-color: dodgerblue;
 }
+
 .count-steps .user-details,
 .count-steps .address,
 .count-steps .photo {
@@ -121,14 +124,12 @@ main .form-container::-webkit-scrollbar {
 }
 
 .form-input-box input:focus {
-  /* outline:none; */
   outline: 2px solid dodgerblue;
   background-color: white;
   border-color: transparent;
 }
 
 .form-input-box textarea:focus {
-  /* outline:none; */
   outline: 2px solid dodgerblue;
   background-color: white;
   border-color: transparent;
