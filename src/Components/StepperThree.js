@@ -10,9 +10,6 @@ const StepperThree = ({
   const [uploadImg, setUploadImg] = useState("");
   const [uploadDoc, setUploadDoc] = useState("");
 
-  useEffect(() => {
-    setStatusLine({ stageThree: true, stageOne: true, stageTwo: true });
-  }, []);
 
   const handleChange = (event) => {
     const img = event.target.files[0];
@@ -35,6 +32,15 @@ const StepperThree = ({
     formik.setFieldValue("doc_file", "");
     setUploadDoc(null);
   };
+
+
+  useEffect(() => {
+    setStatusLine({ stageThree: true, stageOne: true, stageTwo: true });
+    formik.values.img_file && setUploadImg(formik.values.img_file);
+    formik.values.doc_file && setUploadDoc(formik.values.doc_file.name);
+  }, []);
+
+  
 
   return (
     <div className="stepper-one">

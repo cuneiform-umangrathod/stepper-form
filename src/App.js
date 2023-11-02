@@ -6,6 +6,7 @@ import StepperOne from "./Components/StepperOne";
 import StepperTwo from "./Components/StepperTwo";
 import StepperThree from "./Components/StepperThree";
 function App() {
+  
   const [pop_up, setPop_up] = useState(false);
 
   const [statusLine, setStatusLine] = useState({
@@ -14,12 +15,16 @@ function App() {
     stageThree: false,
   });
 
+
   const [stepOne, setStepOne] = useState(false);
   const [stepTwo, setStepTwo] = useState(false);
 
-  const [showStepOne, setShowStepOne] = useState("firstForm");
+
+  const [showStepOne, setShowStepOne] = useState('firstForm');
+
 
   const initialValues = {
+    
     name: "",
     email: "",
     phone: "",
@@ -32,6 +37,7 @@ function App() {
     message: "",
     doc_file: "",
     img_file: "",
+
   };
 
   const validationSchema = yup.object({
@@ -66,10 +72,11 @@ function App() {
     initialValues,
     validationSchema,
     onSubmit: (state, { resetForm }) => {
-      console.log(state);
+      console.log(state); 
       resetForm();
-      setShowStepOne("firstForm");
+      setShowStepOne('firstForm');
       setStepTwo(false);
+      setPop_up(false);
     },
   });
 
@@ -89,7 +96,7 @@ function App() {
                 <div
                   className="user-details"
                   onClick={() => {
-                    if (stepOne) setShowStepOne("firstForm");
+                    if (stepOne) setShowStepOne('firstForm');
                   }}
                 >
                   <span className={statusLine.stageOne ? "active" : ""}></span>
@@ -106,7 +113,8 @@ function App() {
                 <div
                   className="address"
                   onClick={() => {
-                    if (stepOne) setShowStepOne("secondForm");
+                    if (stepOne) setShowStepOne('secondForm');
+                    
                   }}
                 >
                   <span className={statusLine.stageTwo ? "active" : ""}></span>
@@ -116,7 +124,7 @@ function App() {
                 <div
                   className="photo"
                   onClick={() => {
-                    if (stepTwo) setShowStepOne("thirdForm");
+                    if (stepTwo) setShowStepOne('thirdForm');
                   }}
                 >
                   <span
@@ -131,7 +139,7 @@ function App() {
                   className="login-form-main"
                   onSubmit={formik.handleSubmit}
                 >
-                  {showStepOne === "firstForm" && (
+                  {showStepOne === 'firstForm' && (
                     <StepperOne
                       formik={formik}
                       stepOne={stepOne}
@@ -142,7 +150,7 @@ function App() {
                     />
                   )}
 
-                  {showStepOne === "secondForm" && (
+                  {showStepOne === 'secondForm' && (
                     <StepperTwo
                       formik={formik}
                       stepTwo={stepTwo}
@@ -153,7 +161,7 @@ function App() {
                     />
                   )}
 
-                  {showStepOne === "thirdForm" && (
+                  {showStepOne === 'thirdForm' && (
                     <StepperThree
                       formik={formik}
                       setShowStepOne={setShowStepOne}
