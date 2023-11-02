@@ -12,10 +12,10 @@ const StepperThree = ({
   setUploadDoc,
 }) => {
   useEffect(() => {
-    setStatusLine({ stageThree: true ,stageOne: true,stageTwo: true});
+    setStatusLine({ stageThree: true, stageOne: true, stageTwo: true });
     setShowStepOne(false);
     setShowStepTwo(false);
-  },[]);
+  }, []);
 
   const handleChange = (event) => {
     const img = event.target.files[0];
@@ -76,6 +76,7 @@ const StepperThree = ({
           {uploadImg ? (
             <div className="upload-doc">
               <img
+              alt="uploaded_image"
                 className="selected_img"
                 src={URL.createObjectURL(uploadImg)}
               />

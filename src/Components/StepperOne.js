@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 
+
+
 const StepperOne = ({
   formik,
   stepOne,
@@ -22,13 +24,13 @@ const StepperOne = ({
       ? setStepOne(true)
       : setStepOne(false);
   });
-
+  
   useEffect(() => {
     setStatusLine({...statusLine,stageTwo:false,stageThree:false});
     setShowStepTwo(false);
     setShowStepThree(false);
   },[])
-
+  
   return (
     <div className="stepper-one">
       
@@ -83,7 +85,7 @@ const StepperOne = ({
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 onKeyDown={e=>{
-                    if(e.key == 'e' || e.key == '+' || e.key == '-'){
+                    if(e.key === 'e' || e.key === '+' || e.key === '-'){
                         e.preventDefault();
                     }
                 }}

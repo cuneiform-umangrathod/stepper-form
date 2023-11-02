@@ -6,6 +6,8 @@ import StepperOne from "./Components/StepperOne";
 import StepperTwo from "./Components/StepperTwo";
 import StepperThree from "./Components/StepperThree";
 function App() {
+  const [pop_up, setPop_up] = useState(false);
+
   const [statusLine, setStatusLine] = useState({
     stageOne: true,
     stageTwo: false,
@@ -70,7 +72,7 @@ function App() {
     initialValues,
     validationSchema,
     onSubmit: (state, { resetForm }) => {
-      console.log(state);
+      console.log(state); 
       resetForm();
       setUploadDoc(null);
       setUploadImg(null);
@@ -82,94 +84,115 @@ function App() {
   return (
     <div className="App">
       <main>
-        <div className="form-container">
-          <div className="count-steps">
-            <div
-              className="user-details"
-              onClick={() => {
-                if (stepOne) setShowStepOne(true);
-              }}
-            >
-              <span className={statusLine.stageOne ? "active" : ""}></span>
-              <span>User Details</span>
-            </div>
+        {!pop_up && (
+          <button className="open_popup" onClick={() => setPop_up(!pop_up)}>
+            <span className="material-symbols-outlined">app_registration</span>
+          </button>
+        )}
 
-            <span
-              className={statusLine.stageTwo ? "line line-bg" : "line"}
-            ></span>
-            <span
-              className={statusLine.stageThree ? "line2 line-bg" : "line2"}
-            ></span>
+        {pop_up && (
+          <div className="pop-up">
+            <div className="form-container">
+              <div className="count-steps">
+                <div
+                  className="user-details"
+                  onClick={() => {
+                    if (stepOne) setShowStepOne(true);
+                  }}
+                >
+                  <span className={statusLine.stageOne ? "active" : ""}></span>
+                  <span>User Details</span>
+                </div>
 
-            <div
-              className="address"
-              onClick={() => {
-                if (stepOne) setShowStepTwo(true);
-                else if (stepTwo) {
-                  setShowStepThree(false);
-                  setShowStepTwo(true);
-                }
-              }}
-            >
-              <span className={statusLine.stageTwo ? "active" : ""}></span>
-              <span>User Address</span>
-            </div>
+                <span
+                  className={statusLine.stageTwo ? "line line-bg" : "line"}
+                ></span>
+                <span
+                  className={statusLine.stageThree ? "line2 line-bg" : "line2"}
+                ></span>
 
-            <div
-              className="photo"
-              onClick={() => {
-                if (stepTwo) setShowStepThree(true);
-              }}
-            >
-              <span className={statusLine.stageThree ? "active" : ""}></span>
-              <span>Upload Photo</span>
+                <div
+                  className="address"
+                  onClick={() => {
+                    if (stepOne) setShowStepTwo(true);
+                    else if (stepTwo) {
+                      setShowStepThree(false);
+                      setShowStepTwo(true);
+                    }
+                  }}
+                >
+                  <span className={statusLine.stageTwo ? "active" : ""}></span>
+                  <span>User Address</span>
+                </div>
+
+                <div
+                  className="photo"
+                  onClick={() => {
+                    if (stepTwo) setShowStepThree(true);
+                  }}
+                >
+                  <span
+                    className={statusLine.stageThree ? "active" : ""}
+                  ></span>
+                  <span>Upload Photo</span>
+                </div>
+              </div>
+
+              <div className="form-section">
+                <form
+                  className="login-form-main"
+                  onSubmit={formik.handleSubmit}
+                >
+                  {showStepOne && (
+                    <StepperOne
+                      formik={formik}
+                      stepOne={stepOne}
+                      setStepOne={setStepOne}
+                      setShowStepOne={setShowStepOne}
+                      setShowStepTwo={setShowStepTwo}
+                      setShowStepThree={setShowStepThree}
+                      setStatusLine={setStatusLine}
+                      statusLine={statusLine}
+                    />
+                  )}
+
+                  {showStepTwo && (
+                    <StepperTwo
+                      formik={formik}
+                      stepTwo={stepTwo}
+                      setStepTwo={setStepTwo}
+                      setShowStepOne={setShowStepOne}
+                      setShowStepTwo={setShowStepTwo}
+                      setShowStepThree={setShowStepThree}
+                      setStatusLine={setStatusLine}
+                      statusLine={statusLine}
+                    />
+                  )}
+
+                  {showStepThree && (
+                    <StepperThree
+                      formik={formik}
+                      setShowStepOne={setShowStepOne}
+                      setShowStepTwo={setShowStepTwo}
+                      setStatusLine={setStatusLine}
+                      setShowStepThree={setShowStepThree}
+                      uploadImg={uploadImg}
+                      setUploadImg={setUploadImg}
+                      uploadDoc={uploadDoc}
+                      setUploadDoc={setUploadDoc}
+                    />
+                  )}
+                </form>
+              </div>
+              <button
+                className="close_popup"
+                onClick={() => setPop_up(!pop_up)}
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
             </div>
           </div>
-
-          <div className="form-section">
-            <form className="login-form-main" onSubmit={formik.handleSubmit}>
-              {showStepOne && (
-                <StepperOne
-                  formik={formik}
-                  stepOne={stepOne}
-                  setStepOne={setStepOne}
-                  setShowStepOne={setShowStepOne}
-                  setShowStepTwo={setShowStepTwo}
-                  setShowStepThree={setShowStepThree}
-                  setStatusLine={setStatusLine}
-                  statusLine={statusLine}
-                />
-              )}
-
-              {showStepTwo && (
-                <StepperTwo
-                  formik={formik}
-                  stepTwo={stepTwo}
-                  setStepTwo={setStepTwo}
-                  setShowStepOne={setShowStepOne}
-                  setShowStepTwo={setShowStepTwo}
-                  setShowStepThree={setShowStepThree}
-                  setStatusLine={setStatusLine}
-                  statusLine={statusLine}
-                />
-              )}
-
-              {showStepThree && (
-                <StepperThree
-                  formik={formik}
-                  setShowStepOne={setShowStepOne}
-                  setShowStepTwo={setShowStepTwo}
-                  setStatusLine={setStatusLine}
-                  setShowStepThree={setShowStepThree}
-                  uploadImg={uploadImg}
-                  setUploadImg={setUploadImg}
-                  uploadDoc={uploadDoc}
-                  setUploadDoc={setUploadDoc}
-                />
-              )}
-            </form>
-          </div>
-        </div>
+        )}
       </main>
     </div>
   );

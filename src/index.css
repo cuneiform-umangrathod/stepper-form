@@ -4,14 +4,20 @@ body {
   margin: 0;
 }
 
-.App main {
-  display: flex;
-  justify-content: center;
-}
+
 
 main .form-container {
   font-family: "Jost", sans-serif;
   width: 70%;
+  height: 37.5rem;
+  background: white;
+  overflow-y: scroll;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+main .form-container::-webkit-scrollbar {
+  display: none;
 }
 
 .form-container .count-steps {
@@ -20,6 +26,7 @@ main .form-container {
   align-items: center;
   justify-content: space-evenly;
   position: relative;
+  z-index: 2;
 }
 .count-steps .line,
 .count-steps .line2 {
@@ -55,7 +62,6 @@ main .form-container {
   border-radius: 50%;
   color: dodgerblue;
   cursor: pointer;
-
 }
 
 .count-steps span.active {
@@ -228,4 +234,54 @@ main .form-container {
 .upload-doc .selected_img {
   max-width: 100%;
   object-fit: cover;
+}
+
+main .pop-up {
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: darkgrey;
+}
+
+main .open_popup {
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  background-color: rgba(30, 143, 255, 0.301);
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 0;
+}
+
+.pop-up .close_popup {
+  position: absolute;
+  top: 4%;
+  right: 3%;
+  z-index: 2;
+  padding: 0.3rem;
+  line-height: 0;
+  font-size: 1.1rem;
+  font-weight: 400;
+  background-color: rgba(255, 30, 30, 0.301);
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pop-up .close_popup:hover {
+  background-color: rgba(255, 30, 30, 0.808);
+  color: white;
+  cursor: pointer;
+}
+
+.pop-up .close_popup:active,
+main .open_popup:active {
+  transform: scale(0.99) translateY(0.1rem);
 }

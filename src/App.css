@@ -7,24 +7,65 @@
     width: 100%;
   }
 
-  .count-steps .line{
+  .count-steps .line {
     left: 18%;
+  }
 }
+
+@media screen and (min-width: 200px) and (max-width: 915px) and (orientation: landscape) {
+
+  main .form-container {
+    height: 80%;
 }
 
+}
 
-@media screen and (min-width:415px) and (max-width:912px) and (orientation:portrait){
+@media screen and (min-width: 415px) and (max-width: 912px) and (orientation: portrait) {
+  main .form-container {
+    font-family: "Jost", sans-serif;
+    width: 85%;
+    height: 40.75rem;
+  }
 
-    main .form-container {
-        font-family: "Jost", sans-serif;
-        width: 100%;
-      }
+  .login-form-main {
+    width: 75%;
+  }
 
-      .login-form-main {
-        width:75%;
-      }
+  .form-container .form-section {
+    padding-top: 2.5rem;
+  }
 
-      .form-container .form-section {
-        padding-top: 2.5rem;
-    }
-} 
+  .count-steps .line,
+  .count-steps .line2 {
+    width: 27%;
+    left: 22%;
+  }
+  .count-steps .line2 {
+    left: 50%;
+  }
+
+  .form-section .form-file-box {
+    width: 90%;
+  }
+
+  .pop-up .close_popup {
+    top: 2%;
+    right: 2%;
+  }
+}
+
+@media screen and (min-width: 915px) and (max-width: 1180px) and (orientation: landscape) {
+  main .form-container {
+    font-family: "Jost", sans-serif;
+    width: 85%;
+  }
+
+  .count-steps .line,
+  .count-steps .line2 {
+    width: 27%;
+    left: 23%;
+  }
+  .count-steps .line2 {
+    left: 50%;
+  }
+}
