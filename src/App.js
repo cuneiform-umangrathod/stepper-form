@@ -103,7 +103,7 @@ function App() {
 
   useEffect(()=>{
     pop_up && setFormHeight(formRef.current.getBoundingClientRect().height);
-  },[formik.values])
+  })
 
   return (
     <div className="App">
