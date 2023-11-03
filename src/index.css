@@ -4,7 +4,9 @@ body {
   margin: 0;
 }
 
-
+.App main {
+  position: relative;
+}
 
 main .form-container {
   font-family: "Jost", sans-serif;
@@ -25,8 +27,13 @@ main .form-container::-webkit-scrollbar {
   padding-top: 1.5rem;
   align-items: center;
   justify-content: space-evenly;
-  position: relative;
-  z-index: 2;
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  background: white;
+  border-bottom: 1px solid #efefef;
+  padding-bottom: 10px;
+  box-shadow: 0px 3px 0.625rem #efefef;
 }
 
 .count-steps .line,
@@ -222,6 +229,8 @@ main .form-container::-webkit-scrollbar {
   justify-content: center;
   position: relative;
   box-sizing: border-box;
+  max-height:25rem;
+  overflow: hidden;
 }
 
 .upload-doc .upload-input {
@@ -233,7 +242,7 @@ main .form-container::-webkit-scrollbar {
 }
 
 .upload-doc .selected_img {
-  max-width: 100%;
+  max-width: 175px;
   object-fit: cover;
 }
 
@@ -244,7 +253,9 @@ main .pop-up {
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: darkgrey;
+  background: rgba(0, 0, 0, 0.178);
+  position: absolute;
+  top:0;
 }
 
 main .open_popup {
@@ -268,21 +279,26 @@ main .open_popup {
   line-height: 0;
   font-size: 1.1rem;
   font-weight: 400;
-  background-color: rgba(255, 30, 30, 0.301);
-  color: white;
+  background-color: transparent;
+  color: black;
   border: none;
-  border-radius: 0.375rem;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .pop-up .close_popup:hover {
-  background-color: rgba(255, 30, 30, 0.808);
-  color: white;
-  cursor: pointer;
+  color: rgba(255, 30, 30, 0.808);
+  rotate: 90deg;
 }
 
-.pop-up .close_popup:active,
+
 main .open_popup:active {
-  transform: scale(0.99) translateY(0.1rem);
+  transform: translateY(0.1rem);
 }
+
+
+.count-steps span:last-child{
+  border:none; 
+  color:black;
+}
+

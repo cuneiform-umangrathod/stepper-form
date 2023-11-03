@@ -6,25 +6,14 @@ import StepperOne from "./Components/StepperOne";
 import StepperTwo from "./Components/StepperTwo";
 import StepperThree from "./Components/StepperThree";
 function App() {
-  
   const [pop_up, setPop_up] = useState(false);
-  
-  const [statusLine, setStatusLine] = useState({
-    stageOne: true,
-    stageTwo: false,
-    stageThree: false,
-  });
-
 
   const [stepOne, setStepOne] = useState(false);
   const [stepTwo, setStepTwo] = useState(false);
 
-
-  const [showStepOne, setShowStepOne] = useState('firstForm');
-
+  const [showStepOne, setShowStepOne] = useState(0);
 
   const initialValues = {
-    
     name: "",
     email: "",
     phone: "",
@@ -37,7 +26,6 @@ function App() {
     message: "",
     doc_file: "",
     img_file: "",
-
   };
 
   const validationSchema = yup.object({
@@ -72,22 +60,50 @@ function App() {
     initialValues,
     validationSchema,
     onSubmit: (state, { resetForm }) => {
-      console.log(state); 
+      console.log(state);
       resetForm();
-      setShowStepOne('firstForm');
+      setShowStepOne(0);
       setStepTwo(false);
       setPop_up(false);
     },
   });
 
+  function showFormFields() {
+    switch (showStepOne) {
+      case 0:
+        return (
+          <StepperOne
+            formik={formik}
+            stepOne={stepOne}
+            setStepOne={setStepOne}
+            setShowStepOne={setShowStepOne}
+          />
+        );
+      case 1:
+        return (
+          <StepperTwo
+            formik={formik}
+            stepTwo={stepTwo}
+            setStepTwo={setStepTwo}
+            setShowStepOne={setShowStepOne}
+          />
+        );
+      case 2:
+        return (
+          <StepperThree
+            formik={formik}
+            setShowStepOne={setShowStepOne}
+          />
+        );
+    }
+  }
+
   return (
     <div className="App">
       <main>
-        {!pop_up && (
-          <button className="open_popup" onClick={() => setPop_up(!pop_up)}>
-            <span className="material-symbols-outlined">app_registration</span>
-          </button>
-        )}
+        <button className="open_popup" onClick={() => setPop_up(!pop_up)}>
+          <span className="material-symbols-outlined">app_registration</span>
+        </button>
 
         {pop_up && (
           <div className="pop-up">
@@ -96,42 +112,48 @@ function App() {
                 <div
                   className="user-details"
                   onClick={() => {
-                    if (stepOne) setShowStepOne('firstForm');
+                    if (stepOne) setShowStepOne(0);
                   }}
                 >
-                  <span className={statusLine.stageOne ? "active" : ""}></span>
+                  <span className={showStepOne >=0 ? "active" : ""}></span>
                   <span>User Details</span>
                 </div>
 
                 <span
-                  className={statusLine.stageTwo ? "line line-bg" : "line"}
+                  className={showStepOne >=1 ? "line line-bg" : "line"}
                 ></span>
                 <span
-                  className={statusLine.stageThree ? "line2 line-bg" : "line2"}
+                  className={showStepOne >=2 ? "line2 line-bg" : "line2"}
                 ></span>
 
                 <div
                   className="address"
                   onClick={() => {
-                    if (stepOne) setShowStepOne('secondForm');
-                    
+                    if (stepOne) setShowStepOne(1);
                   }}
                 >
-                  <span className={statusLine.stageTwo ? "active" : ""}></span>
+                  <span className={showStepOne >=1 ? "active" : ""}></span>
                   <span>User Address</span>
                 </div>
 
                 <div
                   className="photo"
                   onClick={() => {
-                    if (stepTwo) setShowStepOne('thirdForm');
+                    if (stepTwo) setShowStepOne(2);
                   }}
                 >
                   <span
-                    className={statusLine.stageThree ? "active" : ""}
+                    className={showStepOne >=2 ? "active" : ""}
                   ></span>
                   <span>Upload Photo</span>
                 </div>
+
+                <button
+                  className="close_popup"
+                  onClick={() => setPop_up(!pop_up)}
+                >
+                  <span className="material-symbols-outlined">close</span>
+                </button>
               </div>
 
               <div className="form-section">
@@ -139,43 +161,10 @@ function App() {
                   className="login-form-main"
                   onSubmit={formik.handleSubmit}
                 >
-                  {showStepOne === 'firstForm' && (
-                    <StepperOne
-                      formik={formik}
-                      stepOne={stepOne}
-                      setStepOne={setStepOne}
-                      setShowStepOne={setShowStepOne}
-                      setStatusLine={setStatusLine}
-                      statusLine={statusLine}
-                    />
-                  )}
-
-                  {showStepOne === 'secondForm' && (
-                    <StepperTwo
-                      formik={formik}
-                      stepTwo={stepTwo}
-                      setStepTwo={setStepTwo}
-                      setShowStepOne={setShowStepOne}
-                      setStatusLine={setStatusLine}
-                      statusLine={statusLine}
-                    />
-                  )}
-
-                  {showStepOne === 'thirdForm' && (
-                    <StepperThree
-                      formik={formik}
-                      setShowStepOne={setShowStepOne}
-                      setStatusLine={setStatusLine}
-                    />
-                  )}
+                  {showFormFields()}
+                  
                 </form>
               </div>
-              <button
-                className="close_popup"
-                onClick={() => setPop_up(!pop_up)}
-              >
-                <span className="material-symbols-outlined">close</span>
-              </button>
             </div>
           </div>
         )}

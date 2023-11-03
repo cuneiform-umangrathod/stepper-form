@@ -1,26 +1,38 @@
 import React, { useEffect, useState } from "react";
 
-const StepperThree = ({
-  formik,
-  setShowStepOne,
-  setStatusLine,
-}) => {
-
-
+const StepperThree = ({ formik, setShowStepOne }) => {
   const [uploadImg, setUploadImg] = useState("");
   const [uploadDoc, setUploadDoc] = useState("");
 
-
   const handleChange = (event) => {
     const img = event.target.files[0];
-    formik.setFieldValue("img_file", img);
-    img && setUploadImg(img);
+    if (img) {
+      const imgType = ["image/png", "image/jpeg", "image/webp"];
+      if (imgType.includes(img.type)) {
+        formik.setFieldValue("img_file", img);
+        setUploadImg(img);
+      } else {
+        event.target.value = null;
+        console.error("Invalid file type. Please select a valid image file.");
+      }
+    }
   };
 
   const handleFileChange = (event) => {
     const docFile = event.target.files[0];
-    formik.setFieldValue("doc_file", docFile);
-    docFile && setUploadDoc(docFile.name);
+    if (docFile) {
+      const docType = [
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "text/plain",
+      ];
+      if (docType.includes(docFile.type)) {
+        formik.setFieldValue("doc_file", docFile);
+        docFile && setUploadDoc(docFile.name);
+      } else {
+        console.error("Invalid file type. Please select a valid document file.");
+      }
+    }
   };
 
   const handleDeletePhoto = () => {
@@ -33,14 +45,10 @@ const StepperThree = ({
     setUploadDoc(null);
   };
 
-
   useEffect(() => {
-    setStatusLine({ stageThree: true, stageOne: true, stageTwo: true });
     formik.values.img_file && setUploadImg(formik.values.img_file);
     formik.values.doc_file && setUploadDoc(formik.values.doc_file.name);
   }, []);
-
-  
 
   return (
     <div className="stepper-one">
@@ -79,7 +87,7 @@ const StepperThree = ({
           {uploadImg ? (
             <div className="upload-doc">
               <img
-              alt="uploaded_image"
+                alt="uploaded_image"
                 className="selected_img"
                 src={URL.createObjectURL(uploadImg)}
               />
@@ -115,7 +123,7 @@ const StepperThree = ({
             type="button"
             className={"form-btn"}
             onClick={() => {
-              setShowStepOne('secondForm');
+              setShowStepOne(1);
             }}
           >
             {" "}

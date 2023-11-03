@@ -7,8 +7,6 @@ const StepperOne = ({
   stepOne,
   setStepOne,
   setShowStepOne,
-  setStatusLine,
-  statusLine
 }) => {
   useEffect(() => {
     formik.values.name &&
@@ -23,10 +21,6 @@ const StepperOne = ({
       : setStepOne(false);
   });
   
-  useEffect(() => {
-    setStatusLine({...statusLine,stageTwo:false,stageThree:false});
-
-  },[])
   
   return (
     <div className="stepper-one">
@@ -119,7 +113,7 @@ const StepperOne = ({
               className={stepOne ? "form-btn" : ""}
               disabled={!stepOne}
               onClick={() => {
-                setShowStepOne('secondForm')
+                setShowStepOne(1)
               }}
             >
               {" "}
