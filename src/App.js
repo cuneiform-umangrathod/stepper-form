@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import StepperOne from "./Components/StepperOne";
@@ -7,12 +7,13 @@ import StepperTwo from "./Components/StepperTwo";
 import StepperThree from "./Components/StepperThree";
 function App() {
   const [pop_up, setPop_up] = useState(false);
-
+  const  [formHeight,setFormHeight] = useState();;
   const [stepOne, setStepOne] = useState(false);
   const [stepTwo, setStepTwo] = useState(false);
 
+  
   const [showStepOne, setShowStepOne] = useState(0);
-
+  const formRef = useRef(null);
   const initialValues = {
     name: "",
     email: "",
@@ -95,8 +96,14 @@ function App() {
             setShowStepOne={setShowStepOne}
           />
         );
+        default:
+          return setPop_up(false);
     }
   }
+
+  useEffect(()=>{
+    pop_up && setFormHeight(formRef.current.getBoundingClientRect().height);
+  },[formik.values])
 
   return (
     <div className="App">
@@ -108,7 +115,7 @@ function App() {
         {pop_up && (
           <div className="pop-up">
             <div className="form-container">
-              <div className="count-steps">
+              <div className={formHeight  > 480 ? "count-steps activeFormBorder":"count-steps "}>
                 <div
                   className="user-details"
                   onClick={() => {
@@ -156,7 +163,7 @@ function App() {
                 </button>
               </div>
 
-              <div className="form-section">
+              <div className="form-section" ref={formRef} >
                 <form
                   className="login-form-main"
                   onSubmit={formik.handleSubmit}

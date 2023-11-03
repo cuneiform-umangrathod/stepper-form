@@ -28,11 +28,17 @@ main .form-container::-webkit-scrollbar {
   align-items: center;
   justify-content: space-evenly;
   position: sticky;
+  padding-bottom: 1rem;
   z-index: 3;
   top: 0;
+  transition: all ease .2s;
   background: white;
+  border-bottom: 0px solid #efefef;
+  box-shadow: 0 0 0 #efefef;
+}
+
+.form-container .activeFormBorder {
   border-bottom: 1px solid #efefef;
-  padding-bottom: 10px;
   box-shadow: 0px 3px 0.625rem #efefef;
 }
 
