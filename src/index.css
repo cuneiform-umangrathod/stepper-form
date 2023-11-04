@@ -11,6 +11,7 @@ body {
 main .form-container {
   font-family: "Jost", sans-serif;
   width: 70%;
+  max-width: 62.4375rem;
   height: 37.5rem;
   background: white;
   overflow-y: scroll;
@@ -31,7 +32,7 @@ main .form-container::-webkit-scrollbar {
   padding-bottom: 1rem;
   z-index: 3;
   top: 0;
-  transition: all ease .2s;
+  transition: all ease 0.2s;
   background: white;
   border-bottom: 0px solid #efefef;
   box-shadow: 0 0 0 #efefef;
@@ -235,8 +236,67 @@ main .form-container::-webkit-scrollbar {
   justify-content: center;
   position: relative;
   box-sizing: border-box;
-  max-height:25rem;
+  max-height: 25rem;
   overflow: hidden;
+}
+
+.upload-doc .btnCollection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.btnCollection .addMore {
+  /* width:100px; */
+  position: relative;
+  overflow: hidden;
+  height: fit-content;
+}
+
+.addMore:hover .cancel-btn {
+background-color: dodgerblue;
+color:white;
+}
+
+
+.addMore .cancel-btn {
+  background-color: rgba(30, 143, 255, 0.301);
+  color: dodgerblue;
+  cursor: pointer;
+}
+
+.upload-doc .addMoreInput {
+  position: absolute;
+  width: 99%;
+  height: 99%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.img_box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.img_box .img_wrapper {
+  line-height: 0;
+  position: relative;
+}
+
+.img_wrapper:hover .material-symbols-outlined {
+  color: red;
+}
+.img_wrapper #delete_img {
+  background: none;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+.img_wrapper .material-symbols-outlined {
+  color: transparent;
 }
 
 .upload-doc .upload-input {
@@ -248,8 +308,10 @@ main .form-container::-webkit-scrollbar {
 }
 
 .upload-doc .selected_img {
-  max-width: 175px;
+  width: 5rem;
+  height: 5rem;
   object-fit: cover;
+  border-radius: 0.3125rem;
 }
 
 main .pop-up {
@@ -261,7 +323,7 @@ main .pop-up {
   flex-direction: column;
   background: rgba(0, 0, 0, 0.178);
   position: absolute;
-  top:0;
+  top: 0;
 }
 
 main .open_popup {
@@ -297,14 +359,11 @@ main .open_popup {
   rotate: 90deg;
 }
 
-
 main .open_popup:active {
   transform: translateY(0.1rem);
 }
 
-
-.count-steps span:last-child{
-  border:none; 
-  color:black;
+.count-steps span:last-child {
+  border: none;
+  color: black;
 }
-

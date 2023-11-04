@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const StepperTwo = ({
   formik,
-  stepTwo,
-  setStepTwo,
   setShowStepOne,
 }) => {
   useEffect(() => {
@@ -23,6 +21,7 @@ const StepperTwo = ({
       : setStepTwo(false);
   });
 
+  const [stepTwo, setStepTwo] = useState(false);
 
 
   return (

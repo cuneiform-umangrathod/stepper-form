@@ -19,11 +19,18 @@
   top: 1%;
   right: 2%;
 }
+
+.img_wrapper .material-symbols-outlined {
+  color: red;
+}
 }
 
 @media screen and (min-width: 200px) and (max-width: 915px) and (orientation: landscape) {
   main .form-container {
     height: 80%;
+  }
+  .img_wrapper .material-symbols-outlined {
+    color: red;
   }
 }
 
@@ -59,6 +66,9 @@
     top: 2%;
     right: 2%;
   }
+  .img_wrapper .material-symbols-outlined {
+    color: red;
+  }
 }
 
 @media screen and (min-width: 915px) and (max-width: 1180px) and (orientation: landscape) {
@@ -74,5 +84,8 @@
   }
   .count-steps .line2 {
     left: 50%;
+  }
+  .img_wrapper .material-symbols-outlined {
+    color: red;
   }
 }

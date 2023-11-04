@@ -7,11 +7,8 @@ import StepperTwo from "./Components/StepperTwo";
 import StepperThree from "./Components/StepperThree";
 function App() {
   const [pop_up, setPop_up] = useState(false);
-  const  [formHeight,setFormHeight] = useState();;
-  const [stepOne, setStepOne] = useState(false);
-  const [stepTwo, setStepTwo] = useState(false);
+  const [formHeight, setFormHeight] = useState();
 
-  
   const [showStepOne, setShowStepOne] = useState(0);
   const formRef = useRef(null);
   const initialValues = {
@@ -64,7 +61,6 @@ function App() {
       console.log(state);
       resetForm();
       setShowStepOne(0);
-      setStepTwo(false);
       setPop_up(false);
     },
   });
@@ -72,38 +68,52 @@ function App() {
   function showFormFields() {
     switch (showStepOne) {
       case 0:
-        return (
-          <StepperOne
-            formik={formik}
-            stepOne={stepOne}
-            setStepOne={setStepOne}
-            setShowStepOne={setShowStepOne}
-          />
-        );
+        return <StepperOne formik={formik} setShowStepOne={setShowStepOne} />;
       case 1:
-        return (
-          <StepperTwo
-            formik={formik}
-            stepTwo={stepTwo}
-            setStepTwo={setStepTwo}
-            setShowStepOne={setShowStepOne}
-          />
-        );
+        return <StepperTwo formik={formik} setShowStepOne={setShowStepOne} />;
       case 2:
-        return (
-          <StepperThree
-            formik={formik}
-            setShowStepOne={setShowStepOne}
-          />
-        );
-        default:
-          return setPop_up(false);
+        return <StepperThree formik={formik} setShowStepOne={setShowStepOne} />;
+      default:
+        return setPop_up(false);
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     pop_up && setFormHeight(formRef.current.getBoundingClientRect().height);
-  })
+  });
+
+  const handleFormMove = (event) => {
+    switch (event) {
+      case "address":
+        formik.values.name &&
+          formik.values.email &&
+          formik.values.phone &&
+          formik.values.birthdate &&
+          !formik.errors.name &&
+          !formik.errors.email &&
+          !formik.errors.phone &&
+          !formik.errors.birthdate &&
+          setShowStepOne(1);
+        break;
+
+      case "photos":
+        formik.values.address &&
+          formik.values.pincode &&
+          formik.values.city &&
+          formik.values.state &&
+          formik.values.country &&
+          formik.values.message &&
+          !formik.errors.address &&
+          !formik.errors.pincode &&
+          !formik.errors.city &&
+          !formik.errors.country &&
+          !formik.errors.state &&
+          !formik.errors.message &&
+          showStepOne === 1 &&
+          setShowStepOne(2);
+        break;
+    }
+  };
 
   return (
     <div className="App">
@@ -115,43 +125,48 @@ function App() {
         {pop_up && (
           <div className="pop-up">
             <div className="form-container">
-              <div className={formHeight  > 480 ? "count-steps activeFormBorder":"count-steps "}>
+              <div
+                className={
+                  formHeight > 480
+                    ? "count-steps activeFormBorder"
+                    : "count-steps "
+                }
+              >
                 <div
                   className="user-details"
                   onClick={() => {
-                    if (stepOne) setShowStepOne(0);
+                    if (showStepOne > 0) setShowStepOne(0);
                   }}
                 >
-                  <span className={showStepOne >=0 ? "active" : ""}></span>
+                  <span className={showStepOne >= 0 ? "active" : ""}></span>
                   <span>User Details</span>
                 </div>
 
                 <span
-                  className={showStepOne >=1 ? "line line-bg" : "line"}
+                  className={showStepOne >= 1 ? "line line-bg" : "line"}
                 ></span>
                 <span
-                  className={showStepOne >=2 ? "line2 line-bg" : "line2"}
+                  className={showStepOne >= 2 ? "line2 line-bg" : "line2"}
                 ></span>
 
                 <div
                   className="address"
                   onClick={() => {
-                    if (stepOne) setShowStepOne(1);
+                    // if (showStepOne >= 0) setShowStepOne(1);
+                    handleFormMove("address");
                   }}
                 >
-                  <span className={showStepOne >=1 ? "active" : ""}></span>
+                  <span className={showStepOne >= 1 ? "active" : ""}></span>
                   <span>User Address</span>
                 </div>
 
                 <div
                   className="photo"
                   onClick={() => {
-                    if (stepTwo) setShowStepOne(2);
+                    handleFormMove("photos");
                   }}
                 >
-                  <span
-                    className={showStepOne >=2 ? "active" : ""}
-                  ></span>
+                  <span className={showStepOne >= 2 ? "active" : ""}></span>
                   <span>Upload Photo</span>
                 </div>
 
@@ -163,13 +178,12 @@ function App() {
                 </button>
               </div>
 
-              <div className="form-section" ref={formRef} >
+              <div className="form-section" ref={formRef}>
                 <form
                   className="login-form-main"
                   onSubmit={formik.handleSubmit}
                 >
                   {showFormFields()}
-                  
                 </form>
               </div>
             </div>
