@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const StepperThree = ({ formik, setShowStepOne }) => {
   const [uploadImg, setUploadImg] = useState("");
   const [uploadDoc, setUploadDoc] = useState("");
+  const [keywords, setKeywords] = useState([]);
+
+  const [checkKeywords, setCheckKeywords] = useState(false);
 
   const handleChange = (event) => {
     const img = event.target.files;
@@ -53,11 +56,12 @@ const StepperThree = ({ formik, setShowStepOne }) => {
       if (docType.includes(docFile.type)) {
         formik.setFieldValue("doc_file", docFile);
         docFile && setUploadDoc(docFile.name);
-      } else {
-        console.error(
-          "Invalid file type. Please select a valid document file."
-        );
       }
+      // else {
+      //   console.error(
+      //     "Invalid file type. Please select a valid document file."
+      //   );
+      // }
     }
   };
 
@@ -84,6 +88,19 @@ const StepperThree = ({ formik, setShowStepOne }) => {
     );
   };
 
+  const handleKeywordChange = (event) => {
+    const value = document.getElementById("keyword-input").value.trim();
+    if (!value || keywords.includes(value)) return;
+
+    setKeywords([...keywords, value]);
+    document.getElementById("keyword-input").value = "";
+    // formik.setFieldValue("keywords",keywords);
+  };
+
+  const handleDeleteKeyword = (index) => {
+    setKeywords(keywords.filter((item) => item !== keywords[index]));
+  };
+
   const check = () => {
     formik.setFieldValue("img_file", uploadImg);
   };
@@ -91,11 +108,21 @@ const StepperThree = ({ formik, setShowStepOne }) => {
   useEffect(() => {
     formik.values.img_file && setUploadImg(formik.values.img_file);
     formik.values.doc_file && setUploadDoc(formik.values.doc_file.name);
+    formik.values.keywords && setKeywords(formik.values.keywords);
   }, []);
 
   useEffect(() => {
     formik.setFieldValue("img_file", uploadImg);
   }, [uploadImg]);
+
+  useEffect(() => {
+    formik.setFieldValue("keywords", keywords);
+    // if(document.getElementById('keyword-input').value){
+    //   setCheckKeywords(true)
+    // }else{
+    //   setCheckKeywords(false);
+    // }
+  }, [keywords]);
 
   return (
     <div className="stepper-one">
@@ -199,6 +226,60 @@ const StepperThree = ({ formik, setShowStepOne }) => {
           {formik.errors.img_file && formik.touched.img_file ? (
             <span className="form-error"> {formik.errors.img_file} </span>
           ) : null}
+        </div>
+
+        <div className="keyword-box">
+          <div className="form-input-box">
+            <input
+              type="text"
+              className="form-input"
+              id="keyword-input"
+              name="keywords"
+              onChange={(e) => {
+                e.target.value
+                  ? setCheckKeywords(true)
+                  : setCheckKeywords(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.code === "Enter") {
+                  handleKeywordChange();
+                  e.preventDefault();
+                }
+              }}
+              onBlur={formik.handleBlur}
+            />
+            <label
+              htmlFor="keywords"
+              className={checkKeywords ? "valid-input label" : "label"}
+            >
+              Keywords
+            </label>
+            {/* {formik.errors.keywords && formik.touched.keywords && (
+              <span className="form-error">{formik.errors.keywords}</span>
+            )} */}
+          </div>
+          <button
+            type="button"
+            onClick={handleKeywordChange}
+            className={"form-btn"}
+          >
+            Add
+          </button>
+        </div>
+
+        <div className="show-keywords">
+          {keywords.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="show-keyword-span"
+                onClick={() => handleDeleteKeyword(index)}
+              >
+                <span>{item}</span>
+                <span className="material-symbols-outlined">close</span>
+              </div>
+            );
+          })}
         </div>
 
         <div className="btns">

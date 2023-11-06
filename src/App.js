@@ -24,6 +24,7 @@ function App() {
     message: "",
     doc_file: "",
     img_file: "",
+    keywords: "",
   };
 
   const validationSchema = yup.object({
@@ -38,7 +39,7 @@ function App() {
     phone: yup
       .string()
       .required()
-      .matches(/^[789]\d{9}$/, "Please enter valid number"),
+      .matches(/^[6789]\d{9}$/, "Please enter valid number"),
     birthdate: yup.date().required(),
     address: yup.string().required().min(3, "please enter a valid address"),
     pincode: yup.string().required().min(6, "please enter a valid pincode"),
@@ -52,6 +53,7 @@ function App() {
       .min(2, "please enter valid message"),
     doc_file: yup.mixed().required("please select document file"),
     img_file: yup.mixed().required("please select image file"),
+    keywords: yup.mixed().required("please add keywords"),
   });
 
   const formik = useFormik({

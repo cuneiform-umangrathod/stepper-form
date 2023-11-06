@@ -253,10 +253,9 @@ main .form-container::-webkit-scrollbar {
 }
 
 .addMore:hover .cancel-btn {
-background-color: dodgerblue;
-color:white;
+  background-color: dodgerblue;
+  color: white;
 }
-
 
 .addMore .cancel-btn {
   background-color: rgba(30, 143, 255, 0.301);
@@ -366,4 +365,48 @@ main .open_popup:active {
 .count-steps span:last-child {
   border: none;
   color: black;
+}
+
+.step-one .keyword-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.keyword-box button {
+  height: fit-content;
+}
+
+.show-keywords {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.show-keywords .show-keyword-span {
+  display: block;
+  background: #00800028;
+  background: #00800026;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  color: green;
+  cursor: pointer;
+  position: relative;
+}
+.show-keywords .show-keyword-span:hover {
+  background: red;
+  color:white;
+}
+
+.show-keyword-span .material-symbols-outlined {
+  display: none;
+}
+
+.show-keyword-span:hover .material-symbols-outlined {
+  display: inline;
+  background: red;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  text-align: center;
 }
