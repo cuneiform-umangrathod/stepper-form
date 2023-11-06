@@ -95,6 +95,7 @@ const StepperThree = ({ formik, setShowStepOne }) => {
     setKeywords([...keywords, value]);
     document.getElementById("keyword-input").value = "";
     // formik.setFieldValue("keywords",keywords);
+    setCheckKeywords(false);
   };
 
   const handleDeleteKeyword = (index) => {
@@ -103,6 +104,18 @@ const StepperThree = ({ formik, setShowStepOne }) => {
 
   const check = () => {
     formik.setFieldValue("img_file", uploadImg);
+  };
+
+  const handleExtraKeys = (e) => {
+    if (e.code === "Enter") {
+      handleKeywordChange();
+      e.preventDefault();
+    }
+    if (e.code === "Backspace") {
+      setKeywords(
+        keywords.filter((key) => key !== keywords[keywords.length - 1])
+      );
+    }
   };
 
   useEffect(() => {
@@ -117,11 +130,6 @@ const StepperThree = ({ formik, setShowStepOne }) => {
 
   useEffect(() => {
     formik.setFieldValue("keywords", keywords);
-    // if(document.getElementById('keyword-input').value){
-    //   setCheckKeywords(true)
-    // }else{
-    //   setCheckKeywords(false);
-    // }
   }, [keywords]);
 
   return (
@@ -240,12 +248,7 @@ const StepperThree = ({ formik, setShowStepOne }) => {
                   ? setCheckKeywords(true)
                   : setCheckKeywords(false);
               }}
-              onKeyDown={(e) => {
-                if (e.code === "Enter") {
-                  handleKeywordChange();
-                  e.preventDefault();
-                }
-              }}
+              onKeyDown={handleExtraKeys}
               onBlur={formik.handleBlur}
             />
             <label
@@ -254,9 +257,9 @@ const StepperThree = ({ formik, setShowStepOne }) => {
             >
               Keywords
             </label>
-            {/* {formik.errors.keywords && formik.touched.keywords && (
+            {formik.errors.keywords && formik.touched.keywords && (
               <span className="form-error">{formik.errors.keywords}</span>
-            )} */}
+            )}
           </div>
           <button
             type="button"
