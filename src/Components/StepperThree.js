@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 const StepperThree = ({ formik, setShowStepOne }) => {
   const [uploadImg, setUploadImg] = useState("");
@@ -14,7 +15,7 @@ const StepperThree = ({ formik, setShowStepOne }) => {
       // formik.setFieldValue("img_file", img);
       setUploadImg(Object.values(img).map((item) => item));
     } else {
-      console.error("only accept 5 images");
+      toast.error("only 5 images are allowed")
       event.target.value = null;
     }
   };
@@ -72,7 +73,7 @@ const StepperThree = ({ formik, setShowStepOne }) => {
   };
 
   const handleRemoveImageClick = (items) => {
-    if (Object.values(uploadImg).length === 1) {
+    if (uploadImg.length === 1) {
       handleDeletePhoto();
       return;
     }
@@ -82,7 +83,10 @@ const StepperThree = ({ formik, setShowStepOne }) => {
 
   const handleKeywordChange = (event) => {
     const value = keywordRef.current.value.trim();
-    if (!value || keywords.includes(value)) return;
+    if (!value || keywords.includes(value)) {
+      toast.error( ` keyword already exists` );  
+      return
+    };
 
     setKeywords([...keywords, value]);
     keywordRef.current.value = "";
@@ -234,39 +238,6 @@ const StepperThree = ({ formik, setShowStepOne }) => {
         </div>
 
         <div className="keyword-box">
-          <div className="form-input-box">
-            <input
-              type="text"
-              className="form-input"
-              id="keyword-input"
-              ref={keywordRef}
-              name="keywords"
-              onChange={(e) => {
-                e.target.value
-                  ? setCheckKeywords(true)
-                  : setCheckKeywords(false);
-              }}
-              onKeyDown={handleExtraKeys}
-              onBlur={formik.handleBlur}
-            />
-            <label
-              htmlFor="keywords"
-              className={checkKeywords ? "valid-input label" : "label"}
-            >
-              Keywords
-            </label>
-            {formik.errors.keywords && formik.touched.keywords && (
-              <span className="form-error">{formik.errors.keywords}</span>
-            )}
-          </div>
-          <button
-            type="button"
-            onClick={handleKeywordChange}
-            className={"form-btn"}
-          >
-            Add
-          </button>
-        </div>
 
         <div className="show-keywords">
           {keywords &&
@@ -282,7 +253,42 @@ const StepperThree = ({ formik, setShowStepOne }) => {
                 </div>
               );
             })}
+
+            <div className="form-input-box">
+            <input
+              type="text"
+              className="form-input-keyword"
+              id="keyword-input"
+              ref={keywordRef}
+              name="keywords"
+              onChange={(e) => {
+                e.target.value
+                  ? setCheckKeywords(true)
+                  : setCheckKeywords(false);
+              }}
+              onKeyDown={handleExtraKeys}
+              onBlur={formik.handleBlur}
+              placeholder="keyword"
+              autoComplete="off"
+            />
+         
+            {formik.errors.keywords && formik.touched.keywords && (
+              <span className="form-error">{formik.errors.keywords}</span>
+            )}
+          </div>
         </div>
+
+          
+          {/* <button
+            type="button"
+            onClick={handleKeywordChange}
+            className={"form-btn"}
+          >
+            Add
+          </button> */}
+        </div>
+
+       
 
         <div className="btns">
           <button

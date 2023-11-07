@@ -5,6 +5,8 @@ import * as yup from "yup";
 import StepperOne from "./Components/StepperOne";
 import StepperTwo from "./Components/StepperTwo";
 import StepperThree from "./Components/StepperThree";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [pop_up, setPop_up] = useState(false);
   const [formHeight, setFormHeight] = useState();
@@ -53,7 +55,7 @@ function App() {
       .min(2, "please enter valid message"),
     doc_file: yup.mixed().required("please select document file"),
     img_file: yup.mixed().required("please select image file"),
-    keywords: yup.mixed().required("please add keywords"),
+    keywords: yup.mixed().required("keywords required"),
   });
 
   const formik = useFormik({
@@ -106,10 +108,14 @@ function App() {
           setShowStepOne(2);
         break;
     }
+
+    console.log(!Object.keys(formik.errors).includes(("name")));
+
   };
 
   return (
     <div className="App">
+      <ToastContainer/>
       <main>
         <button className="open_popup" onClick={() => setPop_up(!pop_up)}>
           <span className="material-symbols-outlined">app_registration</span>

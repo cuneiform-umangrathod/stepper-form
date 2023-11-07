@@ -130,14 +130,14 @@ main .form-container::-webkit-scrollbar {
   color: #8a8a8a;
 }
 
-.form-input-box input:focus + label.label,
+.form-input-box .form-input:focus + label.label,
 .form-input-box textarea:focus + label.label,
 .form-input-box .valid-input {
   transform: scale(0.8) translateY(-1.5625rem);
   background: #fff;
 }
 
-.form-input-box input:focus {
+.form-input-box .form-input:focus {
   outline: 2px solid dodgerblue;
   background-color: white;
   border-color: transparent;
@@ -381,7 +381,10 @@ main .open_popup:active {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  
+  border: 3px dotted dodgerblue;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  width: 100%;
 }
 
 .show-keywords .show-keyword-span {
@@ -416,4 +419,21 @@ main .open_popup:active {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+.show-keywords .form-input-box {
+  width:30%;
+}
+
+.show-keywords input{
+  background-color: #f2f2f3;
+  padding: 0.5rem 0.8rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  border-radius: 0.373rem;
+  outline: 3px solid transparent;
+  width:79%;
 }
