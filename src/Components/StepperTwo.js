@@ -5,12 +5,6 @@ const StepperTwo = ({
   setShowStepOne,
 }) => {
   useEffect(() => {
-    formik.values.address &&
-    formik.values.pincode &&
-    formik.values.city &&
-    formik.values.state &&
-    formik.values.country &&
-    formik.values.message &&
     !formik.errors.address &&
     !formik.errors.pincode &&
     !formik.errors.city &&

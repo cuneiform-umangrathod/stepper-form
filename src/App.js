@@ -88,9 +88,6 @@ function App() {
     switch (event) {
       case "address":
         formik.values.name &&
-          formik.values.email &&
-          formik.values.phone &&
-          formik.values.birthdate &&
           !formik.errors.name &&
           !formik.errors.email &&
           !formik.errors.phone &&
@@ -99,13 +96,7 @@ function App() {
         break;
 
       case "photos":
-        formik.values.address &&
-          formik.values.pincode &&
-          formik.values.city &&
-          formik.values.state &&
-          formik.values.country &&
-          formik.values.message &&
-          !formik.errors.address &&
+        !formik.errors.address &&
           !formik.errors.pincode &&
           !formik.errors.city &&
           !formik.errors.country &&

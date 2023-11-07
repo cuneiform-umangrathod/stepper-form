@@ -3,16 +3,16 @@ import React, { useEffect, useRef, useState } from "react";
 const StepperThree = ({ formik, setShowStepOne }) => {
   const [uploadImg, setUploadImg] = useState("");
   const [uploadDoc, setUploadDoc] = useState("");
-  const [keywords, setKeywords] = useState([]);
-
+  const [keywords, setKeywords] = useState("");
+  const keywordRef = useRef(null);
   const [checkKeywords, setCheckKeywords] = useState(false);
 
   const handleChange = (event) => {
     const img = event.target.files;
 
-    if (img && Object.keys(img).length <= 5) {
+    if (Object.keys(img).length <= 5) {
       // formik.setFieldValue("img_file", img);
-      setUploadImg(img);
+      setUploadImg(Object.values(img).map((item) => item));
     } else {
       console.error("only accept 5 images");
       event.target.value = null;
@@ -20,12 +20,8 @@ const StepperThree = ({ formik, setShowStepOne }) => {
   };
 
   const handleMore = (event) => {
-    if (Object.keys(uploadImg).length >= 5) return;
-
     const img = event.target.files[0];
-    const num = Object.keys(uploadImg).length;
-    setUploadImg({ ...uploadImg, [num]: img });
-    formik.setFieldValue("img_file", { ...formik.values.img_file, [num]: img });
+    setUploadImg([...uploadImg, img]);
 
     // formik.setFieldValue("img_file", {...formik.values.img_file,});
   };
@@ -75,31 +71,28 @@ const StepperThree = ({ formik, setShowStepOne }) => {
     setUploadDoc(null);
   };
 
-  const handleRemoveImageClick = (keys) => {
+  const handleRemoveImageClick = (items) => {
     if (Object.values(uploadImg).length === 1) {
       handleDeletePhoto();
       return;
     }
 
-    setUploadImg(
-      Object.values(uploadImg).filter(
-        (item) => item !== Object.values(uploadImg)[keys]
-      )
-    );
+    setUploadImg(uploadImg.filter((item) => item !== items));
   };
 
   const handleKeywordChange = (event) => {
-    const value = document.getElementById("keyword-input").value.trim();
+    const value = keywordRef.current.value.trim();
     if (!value || keywords.includes(value)) return;
 
     setKeywords([...keywords, value]);
-    document.getElementById("keyword-input").value = "";
+    keywordRef.current.value = "";
     // formik.setFieldValue("keywords",keywords);
     setCheckKeywords(false);
   };
 
   const handleDeleteKeyword = (index) => {
     setKeywords(keywords.filter((item) => item !== keywords[index]));
+    if (keywords.length === 1) setKeywords("");
   };
 
   const check = () => {
@@ -108,10 +101,14 @@ const StepperThree = ({ formik, setShowStepOne }) => {
 
   const handleExtraKeys = (e) => {
     if (e.code === "Enter") {
-      handleKeywordChange();
       e.preventDefault();
+      handleKeywordChange();
     }
-    if (e.code === "Backspace") {
+    if (e.code === "Backspace" && !e.target.value) {
+      if (keywords.length <= 1) {
+        setKeywords("");
+        return;
+      }
       setKeywords(
         keywords.filter((key) => key !== keywords[keywords.length - 1])
       );
@@ -169,18 +166,18 @@ const StepperThree = ({ formik, setShowStepOne }) => {
           {uploadImg ? (
             <div className="upload-doc">
               <div className="img_box">
-                {Object.keys(uploadImg).map((keys, index) => {
+                {uploadImg.map((items, index) => {
                   return (
                     <div key={index} className="img_wrapper">
                       <img
                         alt="uploaded_image"
                         className="selected_img"
-                        src={URL.createObjectURL(uploadImg[keys])}
+                        src={URL.createObjectURL(items)}
                       />
                       <button
                         type="button"
                         id="delete_img"
-                        onClick={() => handleRemoveImageClick(keys)}
+                        onClick={() => handleRemoveImageClick(items)}
                       >
                         <span className="material-symbols-outlined">close</span>
                       </button>
@@ -190,7 +187,7 @@ const StepperThree = ({ formik, setShowStepOne }) => {
               </div>
 
               <div className="btnCollection">
-                {Object.keys(uploadImg).length < 5 && (
+                {uploadImg.length < 5 && (
                   <div className="addMore">
                     <input
                       type="file"
@@ -204,7 +201,7 @@ const StepperThree = ({ formik, setShowStepOne }) => {
                   </div>
                 )}
 
-                {Object.keys(uploadImg).length > 1 && (
+                {uploadImg.length > 1 && (
                   <button
                     type="button"
                     className="form-btn cancel-btn"
@@ -242,6 +239,7 @@ const StepperThree = ({ formik, setShowStepOne }) => {
               type="text"
               className="form-input"
               id="keyword-input"
+              ref={keywordRef}
               name="keywords"
               onChange={(e) => {
                 e.target.value
@@ -271,18 +269,19 @@ const StepperThree = ({ formik, setShowStepOne }) => {
         </div>
 
         <div className="show-keywords">
-          {keywords.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="show-keyword-span"
-                onClick={() => handleDeleteKeyword(index)}
-              >
-                <span>{item}</span>
-                <span className="material-symbols-outlined">close</span>
-              </div>
-            );
-          })}
+          {keywords &&
+            keywords.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="show-keyword-span"
+                  onClick={() => handleDeleteKeyword(index)}
+                >
+                  <span>{item}</span>
+                  <span className="material-symbols-outlined">close</span>
+                </div>
+              );
+            })}
         </div>
 
         <div className="btns">

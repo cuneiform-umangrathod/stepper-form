@@ -381,6 +381,7 @@ main .open_popup:active {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  
 }
 
 .show-keywords .show-keyword-span {
@@ -395,7 +396,7 @@ main .open_popup:active {
 }
 .show-keywords .show-keyword-span:hover {
   background: red;
-  color:white;
+  color: white;
 }
 
 .show-keyword-span .material-symbols-outlined {
@@ -406,7 +407,13 @@ main .open_popup:active {
   display: inline;
   background: red;
   width: 100%;
+  border-radius: 1.5rem;
   position: absolute;
+  height: 100%;
   left: 0;
+  top:0;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

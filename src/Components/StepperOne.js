@@ -8,9 +8,6 @@ const StepperOne = ({
 }) => {
   useEffect(() => {
     formik.values.name &&
-    formik.values.email &&
-    formik.values.phone &&
-    formik.values.birthdate &&
     !formik.errors.name &&
     !formik.errors.email &&
     !formik.errors.phone &&
